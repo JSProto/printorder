@@ -1,0 +1,26 @@
+{
+  "name": "medical-managment",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "medical"
+  ],
+  "author": "azbenek",
+  "devDependencies": {
+    "electron-packager": "^8.0.0",
+    "electron-prebuilt": "^1.2.0"
+  },
+  "dependencies": {
+    "accounting": "^0.4.1",
+    "bootstrap": "^3.3.7",
+    "dexie": "^1.4.2",
+    "electron": "^1.4.0",
+    "jquery": "^3.1.0",
+    "jquery-ui": "^1.12.1",
+    "vue": "^1.0.26"
+  }
+}

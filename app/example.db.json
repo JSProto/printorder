@@ -1,0 +1,68 @@
+{
+    "categories": [
+        {"id": 1, "description": "Дослідження крові", "group": 1},
+        {"id": 2, "description": "Дослідження сечі", "group": 1},
+        {"id": 3, "description": "Дослідження калу", "group": 1},
+        {"id": 4, "description": "Бактеріологічні дослідження", "group": 1},
+        {"id": 5, "description": "Клінічна хімія", "group": 2},
+        {"id": 6, "description": "Ліпідний обмін", "group": 2},
+        {"id": 7, "description": "Вуглеводний обмін", "group": 2},
+        {"id": 8, "description": "Маркери нирок", "group": 2},
+        {"id": 9, "description": "Маркери печінки та підшлункової залози", "group": 2},
+        {"id": 10, "description": "Обмін мікроелементів та вітамінів", "group": 2},
+        {"id": 11, "description": "Ревматоїдні маркери", "group": 2},
+        {"id": 12, "description": "Серцеві маркети", "group": 2},
+        {"id": 13, "description": "Показники остеопорозу", "group": 2},
+        {"id": 14, "description": "Гормони гіпофізу та гіпоталамусу", "group": 3},
+        {"id": 15, "description": "Гормони щитоподібної та при щитоподібних залоз", "group": 3},
+        {"id": 17, "description": "Гормони наднирників та нирок", "group": 3},
+        {"id": 18, "description": "Аутоімунні маркери", "group": 4},
+        {"id": 19, "description": "Гельмінти", "group": 4},
+        {"id": 20, "description": "TORCH – інфекції", "group": 4},
+        {"id": 21, "description": "Уро-генітальні інфекції", "group": 4},
+        {"id": 22, "description": "Інші інфекції", "group": 4},
+        {"id": 23, "description": "Окомаркери", "group": 4},
+        {"id": 24, "description": "Комплексні дослідження (пакети)", "group": 5},
+        {"id": 25, "description": "Забір матеріалу одноразовими системами", "group": 5}
+    ],
+    "items": [
+        {"id": 1, "cat_id": 1, "code": 4003, "description": "Група крові + резус фактор", "price": 90},
+        {"id": 2, "cat_id": 1, "code": 4018, "description": "Аналіз крові розгорнутий (24 показники; ЗАК + ШОЕ)", "price": 85},
+        {"id": 3, "cat_id": 1, "code": 4019, "description": "Аналіз крові розгорнутий (25 показників; ЗАК + ШОЕ + ручний підрахунок лейкоцитарної формули)", "price": 115},
+        {"id": 4, "cat_id": 1, "code": 1104, "description": "Коагулограма (ПЧ, АЧТЧ, фібриноген, ТЧ, МНО)", "price": 165},
+        {"id": 5, "cat_id": 1, "code": 1102, "description": "Визначення тромбінованого часу (ТЧ)", "price": 65},
+        {"id": 6, "cat_id": 2, "code": 4004, "description": "Аналіз сечі загальний", "price": 80},
+        {"id": 7, "cat_id": 2, "code": 4005, "description": "Аналіз сечі за Зимницьким", "price": 80},
+        {"id": 8, "cat_id": 2, "code": 4006, "description": "Аналіз сечі за Нечипоренком", "price": 80},
+        {"id": 9, "cat_id": 3, "code": 4008, "description": "Аналіз калу на яйця гельмінтів і цисти найпростіших", "price": 95},
+        {"id": 10, "cat_id": 3, "code": 4010, "description": "Копрограма", "price": 95},
+        {"id": 11, "cat_id": 3, "code": 4007, "description": "Кал на приховану кров", "price": 95},
+        {"id": 12, "cat_id": 3, "code": 4028, "description": "Helicobacter pylori, антиген у калі", "price": 120},
+        {"id": 13, "cat_id": 3, "code": 4029, "description": "Giardia (лямблія), антиген у калі", "price": 120},
+        {"id": 14, "cat_id": 4, "code": 5001, "description": "Бакпосів на мікрофлору + антибіотикограма (у/г)", "price": 185},
+        {"id": 15, "cat_id": 4, "code": 5019, "description": "Бакпосів секрету простати + антибіотикограма", "price": 185},
+        {"id": 16, "cat_id": 4, "code": 5013, "description": "Бакпосів сечі + антибіотикограма", "price": 185},
+        {"id": 17, "cat_id": 5, "code": 1043, "description": "Альбумін", "price": 55},
+        {"id": 18, "cat_id": 4, "code": 1044, "description": "Амілаза", "price": 55},
+        {"id": 19, "cat_id": 4, "code": 1047, "description": "Білок загальний", "price": 55},
+        {"id": 20, "cat_id": 4, "code": 1051, "description": "Гамма-глутаматтрансфераза (GGT)", "price": 55},
+        {"id": 21, "cat_id": 4, "code": 1052, "description": "Залізо  сироваткове", "price": 55}
+    ],
+    "orders": [
+        {"id": 1, "datetime": "2016-08-14T22:43:03Z"},
+        {"id": 2, "datetime": "2016-09-07T16:24:03Z"},
+        {"id": 3, "datetime": "2016-10-24T08:17:53Z"}
+    ],
+    "order_items": [
+        {"id": 1, "order_id": 1, "code": 1047, "qty": 1, "description": "Білок загальний", "total": 55},
+        {"id": 2, "order_id": 1, "code": 1051, "qty": 3, "description": "Гамма-глутаматтрансфераза (GGT)", "total": 165},
+        {"id": 3, "order_id": 1, "code": 1052, "qty": 2, "description": "Залізо  сироваткове", "total": 110},
+
+        {"id": 4, "order_id": 2, "code": 4010, "qty": 2, "description": "Копрограма", "total": 190},
+        {"id": 5, "order_id": 2, "code": 4007, "qty": 1, "description": "Кал на приховану кров", "total": 95},
+
+        {"id": 6, "order_id": 3, "code": 4004, "qty": 2, "description": "Аналіз сечі загальний", "total": 160},
+        {"id": 7, "order_id": 3, "code": 4005, "qty": 4, "description": "Аналіз сечі за Зимницьким", "total": 320},
+        {"id": 8, "order_id": 3, "code": 4006, "qty": 1, "description": "Аналіз сечі за Нечипоренком", "total": 80}
+    ]
+}

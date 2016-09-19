@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App</title>
+    <link rel="icon" href="../../favicon.ico">
+
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../node_modules/jquery-ui/themes/base/all.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        window.jQuery = require('jquery');
+        require('jquery-ui');
+        require('bootstrap');
+
+        const {ipcRenderer} = require('electron');
+
+        function openAdminPage(){
+            ipcRenderer.send('open-admin-page', 'ping');
+        }
+
+    </script>
+</head>
+<body>
+    <template id="cart-template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Замовлення № {{ data.id }}</h3>
+            </div>
+            <div class="panel-body" v-show="data.items.length < 1">
+                <p>нет элементов для отображения</p>
+            </div>
+            <table class="table table-striped" v-show="data.items.length">
+                <thead>
+                    <tr>
+                        <th style="width:30px">#</th>
+                        <th>Найменування</th>
+                        <th style="width: 55px" class="text-center">К-ть</th>
+                        <th style="width: 100px" class="text-center">Цiна</th>
+                        <th style="width: 110px" class="text-center">Всього</th>
+                        <th style="width: 36px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="row in data.items" track-by="$index">
+                        <td class="text-center">
+                            {{ $index +1 }}
+                            <input type="hidden" :value="row.qty * row.price | currencyDisplay" v-model="row.total | currencyDisplay" number />
+                        </td>
+                        <td>
+                            <span>{{ row.description }}</span>
+                        </td>
+                        <td class="text-center">
+                            <input class="form-control qty text-right" v-model="row.qty" number type='number' min='0' max='99'/>
+                        </td>
+                        <td class="text-right">
+                            <span>{{row.price | currencyDisplay}}</span>
+                        </td>
+                        <td class="text-right">
+                            <span>{{row.qty * row.price | currencyDisplay}}</span>
+                        </td>
+                        <td>
+                            <button class="order-item-del btn btn-danger btn-xs"  @click="removeRow(row)">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">До оплати</td>
+                    <td colspan="1" class="text-right">
+                    <input type="hidden" :value="total | currencyDisplay" v-model="data.total | currencyDisplay" number />
+                    {{ total | currencyDisplay }}</td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+            <div class="panel-footer">
+                <button class="btn btn-info btn-sm" @click="saveAndPrint()">Зберегти та роздрукувати</button>
+            </div>
+        </div>
+    </template>
+
+    <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Замовлення</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" class="create-check">Нове замовлення</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id='alert' class="{{visible}} alert alert-{{style}}" >{{message}}</div>
+    </div>
+    <div class="container" id="content">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <cart id="shopping-cart"
+                    :data.sync="cart">
+                </cart>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">dump</h3></div>
+                    <div class="panel-body"><pre>{{ cart | json }}</pre></div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-sm-6" id="items">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="panel-title">Медпропозиції</h3></div>
+                    <div class="panel-body">
+                        <select v-model="selected_category" class="form-control">
+                            <option value="" selected="selected">Всi категорії &nbsp;- {{items.data.length}}</option>
+                            <option v-for="category in categories.data"
+                                :value="category.id">{{category.description}} &nbsp;- {{ getCountItems(category.id) }}</option>
+                        </select>
+                    </div>
+                    <div class="panel-body">
+
+                        <input type="text" class="form-control" v-model="query" placeholder="Фiльтр" style="width:100%">
+
+                    </div>
+                    <table class="table table-bordered table-hover">
+                        <tr class="item-select"
+                            v-for="row in getListItem() | filterBy selected_category in 'cat_id' | filterBy query in 'description' | orderBy description" @click="addToCart(row)">
+                            <td><span>{{row.description}}</span></td>
+                            <td style="text-align: right; width: 100px"><span>{{row.price | currencyDisplay}}</span></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        jQuery(function($) {
+
+
+        });
+    </script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/grid.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
