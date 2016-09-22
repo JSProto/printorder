@@ -6,9 +6,6 @@ Vue.filter("getCategoryName", function(value) {
     return App.getCategoryName(value);
 });
 
-
-var vOrder;
-
 // filters
 Vue.filter('localeDate', function(dt) {
     return dt ? dt.toLocaleString() : '';
@@ -123,38 +120,7 @@ App = new Application({
         },
         addToCart: function(row) {
             this.cart.items.push(Object.assign({qty: 1}, row));
+            notify.info("В корзину добавлен один элемент");
         }
     }
 });
-
-
-// vOrder = new Vue({
-//     el: '#order',
-//     data: {
-//         number: '',
-//         datetime: null,
-//         qty: 0,
-//         suma: 0,
-//         items: []
-//     },
-//     methods: {
-//         createNew: function() {
-//             var self = this;
-//             this.datetime = new Date();
-//             this.qty = 0;
-//             this.suma = 0;
-//             db.orders.count(function(count) {
-//                 self.number = count + 1;
-//             });
-//         },
-//         addItem: function(item) {
-
-//         },
-//         deleteItem: function(item) {
-
-//         }
-//     }
-// });
-
-// vOrder.createNew();
-

@@ -8,21 +8,12 @@ Vue.partial("linkedGridCell", "<a href=\"http://www.google.com?q={{ row.name }}\
 Vue.partial("buttonGridCell", '<button class="btn btn-default btn-xs" @click="editItem(row.id)"> <partial name="defaultGridCell"></partial></button>');
 
 
-
-Vue.filter('currencyDisplay', {
+Vue.filter('currency', {
     // http://openexchangerates.github.io/accounting.js/accounting.min.js
-
-    // model -> view
-    read: function (val) {
-        if (val > 0) {
-            return accounting.formatMoney(val, String.fromCharCode(8372), 2, " ", ".");
-        }
-    },
-    // view -> model
-    write: function (val, oldVal) {
-        return accounting.unformat(val, ".");
-    }
+    read: accounting.formatMoney,
+    write: accounting.unformat
 });
+
 
 Vue.filter("groupBy", function(value, key) {
     var groups = {
@@ -335,6 +326,7 @@ Vue.component("cart", {
         },
         removeRow: function (row) {
             this.data.items.$remove(row);
+            notification.default("Из корзины удален один элемент");
         }
     }
 });

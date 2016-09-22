@@ -1,16 +1,41 @@
 /**
  * Created by azbenek on 05.12.2015.
  */
-let Vue = require('vue');
-let Dexie = require('dexie');
+const Vue = require('vue');
+const Dexie = require('dexie');
 
-let accounting = require('accounting');
+const accounting = require('accounting');
+const notify = require('notification-js');
 
-accounting.settings.currency.format = "%v %s";
+const db = new Dexie('OrdersDatabase');
 
-var log, App, tableItems;
+"default,info,error,success,warning".split(",").map(method => {
+    notify[method] = function(message, options){
+        return notify.notify(method, message, options);
+    };
+});
 
-let db = new Dexie('OrdersDatabase');
+notify.configProfile('global', {
+    notification: {
+        position: ['right', 'bottom']
+    }
+});
+
+accounting.settings = {
+    currency: {
+        symbol: String.fromCharCode(8372),   // default currency symbol is '₴'
+        precision: 2,
+        format: "%v %s",
+        decimal: ".",
+        thousand: " "
+    },
+    number: {
+        precision: 0,  // default precision on numbers is 0
+        thousand: " ",
+        decimal : "."
+    }
+};
+
 
 db.version(1).stores({
     categories: "&id, group, description",
@@ -19,7 +44,6 @@ db.version(1).stores({
     order_items: "++id, order_id, code, qty, description, total"
 });
 db.open();
-
 
 let Application = Vue.extend({
 
@@ -59,46 +83,5 @@ let Application = Vue.extend({
     }
 });
 
+let App;
 
-jQuery(function($) {
-    // init Vue
-    log = new Vue({
-        el: '#alert',
-        data: {
-            style: 'info',
-            message: '',
-            visible: 'hide'
-        },
-        methods: {
-            show: function(style, message, autohide) {
-                this.style = style;
-                this.message = message;
-                this.visible = '';
-                if (autohide) {
-                    setTimeout(() => {
-                        this.hide();
-                    }, 5000);
-                }
-            },
-            hide: function() {
-                this.visible = 'hide'
-            },
-            info: function(message) {
-                this.show('info', message, true);
-            },
-            error: function(message) {
-                this.show('danger', message, true);
-            },
-            success: function(message) {
-                this.show('success', message, true);
-            },
-            warning: function(message) {
-                this.show('warning', message, true);
-            },
-            warn: function(message) {
-                this.show('warning', message, true);
-            }
-        }
-    });
-
-});
