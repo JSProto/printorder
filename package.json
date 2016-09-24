@@ -1,16 +1,21 @@
 {
-  "name": "medical-managment",
+  "name": "print-order",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dev": "electron . --debug",
+    "lint": "standard",
+    "pack-mac": "electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.0.0 --prune=true --out=out",
+    "build": "electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.0.0"
   },
   "keywords": [
     "medical"
   ],
   "author": "azbenek",
   "devDependencies": {
+    "electron": "^1.4.1",
     "electron-packager": "^8.0.0",
     "electron-prebuilt": "^1.2.0"
   },
@@ -18,7 +23,6 @@
     "accounting": "^0.4.1",
     "bootstrap": "^3.3.7",
     "dexie": "^1.4.2",
-    "electron": "^1.4.0",
     "jquery": "^3.1.0",
     "jquery-ui": "^1.12.1",
     "notification-js": "^1.1.1",

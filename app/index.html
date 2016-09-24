@@ -80,7 +80,7 @@
                 </tfoot>
             </table>
             <div class="panel-footer">
-                <button class="btn btn-info btn-sm" @click="saveAndPrint()">Зберегти та роздрукувати</button>
+                <button class="btn btn-info btn-sm" @click="print()">Роздрукувати</button>
             </div>
         </div>
     </template>
@@ -103,6 +103,7 @@
 
             <div class="col-sm-6">
                 <cart id="shopping-cart"
+                    @order-print="printOrder"
                     :data.sync="cart">
                 </cart>
 

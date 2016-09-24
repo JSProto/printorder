@@ -132,7 +132,7 @@ function createMainWindow() {
     let indexFile = 'file://' + __dirname + '/app/index.html';
 
     const options = {
-        width: 9300,
+        width: 900,
         height: 800,
         autoHideMenuBar: true,
         backgroundColor: '#FFFFFF',
@@ -157,8 +157,8 @@ function createAdminWindow(){
     let adminFile = 'file://' + __dirname + '/app/admin.html';
 
     const options = {
-        parent: mainWindow,
-        width: 9300,
+        // parent: mainWindow,
+        width: 900,
         height: 800,
         autoHideMenuBar: true,
         backgroundColor: '#FFFFFF',

@@ -121,6 +121,9 @@ App = new Application({
         addToCart: function(row) {
             this.cart.items.push(Object.assign({qty: 1}, row));
             notify.info("В корзину добавлен один элемент");
+        },
+        printOrder: function(orderItems){
+            console.log("print order", Vue.filter("json").read(orderItems));
         }
     }
 });

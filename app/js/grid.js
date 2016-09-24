@@ -326,7 +326,10 @@ Vue.component("cart", {
         },
         removeRow: function (row) {
             this.data.items.$remove(row);
-            notification.default("Из корзины удален один элемент");
+            notify.default("Из корзины удален один элемент");
+        },
+        print: function(){
+            this.$emit('order-print', this.data.items);
         }
     }
 });
