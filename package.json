@@ -5,19 +5,23 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "electron . --debug",
     "lint": "standard",
-    "pack-mac": "electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.0.0 --prune=true --out=out",
-    "build": "electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.0.0"
+    "clean": "rm -rf ./dist/*",
+    "build-mac": "npm run clean && electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.4.1 --app-version=$npm_package_version --out=dist --prune",
+    "build-win": "npm run clean && electron-packager . PrintOrder --overwrite --platform=win32 --arch=x64 --version=1.4.1 --app-version=$npm_package_version --out=dist --prune",
+    "test": "xo"
   },
   "keywords": [
-    "medical"
+    "medical",
+    "print",
+    "order"
   ],
   "author": "azbenek",
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-packager": "^8.0.0",
-    "electron-prebuilt": "^1.2.0"
+    "electron-prebuilt": "^1.2.0",
+    "xo": "^0.16.0"
   },
   "dependencies": {
     "accounting": "^0.4.1",
@@ -27,5 +31,16 @@
     "jquery-ui": "^1.12.1",
     "notification-js": "^1.1.1",
     "vue": "^1.0.26"
+  },
+  "xo": {
+    "space": 2,
+    "envs": [
+      "node",
+      "browser"
+    ],
+    "ignores": [
+      "dist/**",
+      "node_modules/**"
+    ]
   }
 }

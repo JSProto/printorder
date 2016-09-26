@@ -1,6 +1,6 @@
 # Build and Release Folders
 out/
-release/
+dist/
 
 # Other files and folders
 node_modules/
