@@ -49,20 +49,20 @@
         {"id": 21, "cat_id": 4, "code": 1052, "description": "Залізо  сироваткове", "price": 55}
     ],
     "orders": [
-        {"id": 1, "datetime": "2016-08-14T22:43:03Z"},
-        {"id": 2, "datetime": "2016-09-07T16:24:03Z"},
-        {"id": 3, "datetime": "2016-10-24T08:17:53Z"}
+        {"id": 1, "datetime": "2016-08-14T22:43:03Z", "total": 330},
+        {"id": 2, "datetime": "2016-09-07T16:24:03Z", "total": 285},
+        {"id": 3, "datetime": "2016-10-24T08:17:53Z", "total": 560}
     ],
     "order_items": [
-        {"id": 1, "order_id": 1, "code": 1047, "qty": 1, "description": "Білок загальний", "total": 55},
-        {"id": 2, "order_id": 1, "code": 1051, "qty": 3, "description": "Гамма-глутаматтрансфераза (GGT)", "total": 165},
-        {"id": 3, "order_id": 1, "code": 1052, "qty": 2, "description": "Залізо  сироваткове", "total": 110},
+        {"id": 1, "order_id": 1, "code": 1047, "qty": 1, "description": "Білок загальний", "price": 55},
+        {"id": 2, "order_id": 1, "code": 1051, "qty": 3, "description": "Гамма-глутаматтрансфераза (GGT)", "price": 55},
+        {"id": 3, "order_id": 1, "code": 1052, "qty": 2, "description": "Залізо  сироваткове", "price": 55},
 
-        {"id": 4, "order_id": 2, "code": 4010, "qty": 2, "description": "Копрограма", "total": 190},
-        {"id": 5, "order_id": 2, "code": 4007, "qty": 1, "description": "Кал на приховану кров", "total": 95},
+        {"id": 4, "order_id": 2, "code": 4010, "qty": 2, "description": "Копрограма", "price": 95},
+        {"id": 5, "order_id": 2, "code": 4007, "qty": 1, "description": "Кал на приховану кров", "price": 95},
 
-        {"id": 6, "order_id": 3, "code": 4004, "qty": 2, "description": "Аналіз сечі загальний", "total": 160},
-        {"id": 7, "order_id": 3, "code": 4005, "qty": 4, "description": "Аналіз сечі за Зимницьким", "total": 320},
-        {"id": 8, "order_id": 3, "code": 4006, "qty": 1, "description": "Аналіз сечі за Нечипоренком", "total": 80}
+        {"id": 6, "order_id": 3, "code": 4004, "qty": 2, "description": "Аналіз сечі загальний", "price": 80},
+        {"id": 7, "order_id": 3, "code": 4005, "qty": 4, "description": "Аналіз сечі за Зимницьким", "price": 80},
+        {"id": 8, "order_id": 3, "code": 4006, "qty": 1, "description": "Аналіз сечі за Нечипоренком", "price": 80}
     ]
 }

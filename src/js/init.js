@@ -9,13 +9,18 @@ global.jQuery = require('jquery');
 require('jquery-ui');
 require('bootstrap');
 
-const Vue = require('vue');
 const Dexie = require('dexie');
+const Vue = require('vue');
 
 const currency = require('accounting');
 const notify = require('notification-js');
 
 const db = new Dexie('OrdersDatabase');
+
+
+Vue.use(require('vue-moment'));
+require('moment/locale/uk');
+
 
 "default,info,error,success,warning".split(",").map(method => {
     notify[method] = function(message, options){
@@ -48,10 +53,31 @@ currency.settings = {
 db.version(1).stores({
     categories: "&id, group, description",
     items: "++id, &code, cat_id, description, price",
-    orders: "++id, datetime",
-    order_items: "++id, order_id, code, qty, description, total"
+    orders: "++id, datetime, total",
+    order_items: "++id, order_id, code, qty, description, price"
 });
 db.open();
+
+function getOrderItems () {
+
+    var all = Dexie.Promise.all;
+
+    // Query
+    return db.orders.toArray().then(orders => {
+
+        return Dexie.Promise.all(orders.map(order =>
+
+            Dexie.Promise.all([
+                db.order_items.where('order_id').anyOf (order.id).toArray()
+            ]).then(result => {
+                [order.items] = result;
+                return order;
+            })
+
+        ));
+
+    });
+}
 
 let Application = Vue.extend({
 

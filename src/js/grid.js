@@ -329,3 +329,47 @@ Vue.component('cart', {
         }
     }
 });
+
+
+Vue.component('order', {
+    template: '#order-template',
+    props: {
+        id: {
+            type: String,
+            required: true
+        },
+        orders: {
+            type: Array
+        },
+        items: {
+            type: Array
+        }
+    },
+    computed: {
+        columnSpan: function () {
+            return this.allowSelection ? this.columns.length + 1 : this.columns.length;
+        },
+        total: function () {
+            return 100; //this.data.items.reduce((total, e)=> total + currency.unformat(e.total, ','), 0);
+        }
+    },
+    methods: {
+        getCellTemplate: function (column) {
+            return "defaultGridCell";
+        },
+        getColumnStyle: function (column) {
+            return column.style || {};
+        },
+        formatData: function (column, value) {
+            if (column.hasOwnProperty('filter')) {
+                var filter = Vue.filter(column.filter.name);
+                var args = [].concat(value, column.filter.args);
+                return (filter.read || filter).apply(this, args);
+            }
+            return value;
+        },
+        print: function (){
+            this.$emit('order-print', this.data.items);
+        }
+    }
+});

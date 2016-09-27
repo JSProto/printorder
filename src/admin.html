@@ -214,6 +214,51 @@
         </div>
     </template>
 
+    <template id="order-template">
+        <div id="{{ id }}" v-for="order in orders"  class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Замовлення №{{ order.id }} - {{ order.datetime | moment "dddd, LL" }}</h3>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:30px">#</th>
+                        <th>Найменування</th>
+                        <th style="width: 55px" class="text-center">К-ть</th>
+                        <th style="width: 100px" class="text-center">Цiна</th>
+                        <th style="width: 110px" class="text-center">Всього</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr v-for="item in items | filterBy order.id in 'order_id' " track-by="$index">
+
+                        <td class="text-center">
+                            {{ $index +1 }}
+                        </td>
+                        <td>
+                            <span>{{ item.description }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span>{{ item.qty }}</span>
+                        </td>
+                        <td class="text-right">
+                            <span>{{ item.price | currency }}</span>
+                        </td>
+                        <td class="text-right">
+                            <span>{{ item.qty * item.price | currency }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Оплачено</td>
+                    <td colspan="1" class="text-right">{{ order.total | currency }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </template>
 
     <div class="container">
         <nav class="navbar navbar-inverse">
@@ -245,11 +290,12 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="orders-list">
 
-                        <datagrid id="orders-grid"
-                            :columns="orders.columns"
-                            :data="orders.data"
-                            :show-advanced-options="true">
-                        </datagrid>
+                        <order id="orders-grid"
+                            @order-print="printOrder"
+                            :orders="orders.data"
+                            :items="orderItems.data">
+                        </order>
+
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="items-list">

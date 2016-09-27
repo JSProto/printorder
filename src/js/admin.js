@@ -3,7 +3,7 @@
  */
 
 Vue.filter('getCategoryName', function (value) {
-    return global.App.getCategoryName(value);
+    return App.getCategoryName(value);
 });
 
 // tableItems = new Vue({
@@ -31,7 +31,7 @@ Vue.filter('getCategoryName', function (value) {
 //     }
 // });
 
-global.App = new Application({
+App = new Application({
     el: '#content',
     replace: false,
     data: {
