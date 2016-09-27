@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="row in data.items" track-by="$index">
+                    <tr v-for="row in data.items | orderBy 'description'" track-by="$index">
                         <td class="text-center">
                             {{ $index +1 }}
                             <input type="hidden" :value="row.qty * row.price | currency" v-model="row.total | currency" number />

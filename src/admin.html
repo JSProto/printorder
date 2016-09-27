@@ -215,7 +215,7 @@
     </template>
 
     <template id="order-template">
-        <div id="{{ id }}" v-for="order in orders"  class="panel panel-default">
+        <div id="{{ id }}" v-for="order in orders | orderBy 'id' -1"  class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Замовлення №{{ order.id }} - {{ order.datetime | moment "dddd, LL" }}</h3>
             </div>
@@ -231,7 +231,7 @@
                 </thead>
                 <tbody>
 
-                    <tr v-for="item in items | filterBy order.id in 'order_id' " track-by="$index">
+                    <tr v-for="item in items | filterBy order.id in 'order_id' | orderBy 'description'" track-by="$index">
 
                         <td class="text-center">
                             {{ $index +1 }}
