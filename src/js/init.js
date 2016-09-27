@@ -1,10 +1,18 @@
 /**
  * Created by azbenek on 05.12.2015.
  */
+
+let App;
+
+global.jQuery = require('jquery');
+
+require('jquery-ui');
+require('bootstrap');
+
 const Vue = require('vue');
 const Dexie = require('dexie');
 
-const accounting = require('accounting');
+const currency = require('accounting');
 const notify = require('notification-js');
 
 const db = new Dexie('OrdersDatabase');
@@ -21,7 +29,7 @@ notify.configProfile('global', {
     }
 });
 
-accounting.settings = {
+currency.settings = {
     currency: {
         symbol: String.fromCharCode(8372),   // default currency symbol is '₴'
         precision: 2,
@@ -52,16 +60,17 @@ let Application = Vue.extend({
     },
     methods: {
         importJsonToDb: function() {
-            var data = require("./example.db.json");
+            var data = require("../db.json");
 
             Object.keys(data).forEach((key)=>{
-                console.log(key);
                 db[key].clear();
 
                 db[key].bulkAdd(data[key])
-                    .then(() => log.info('Loaded %s.', key))
-                    .catch(Dexie.BulkError, e => log.error("Error: ", key, (e.stack || e)));
+                    .then(() => console.info(`Loaded ${key}.`))
+                    .catch(Dexie.BulkError, e => notify.error("Error: ", key, (e.stack || e)));
             });
+
+            notify.info("База данных обновлена");
         },
 
         importDbToApp: function(){
@@ -69,6 +78,8 @@ let Application = Vue.extend({
             db.items.orderBy('description').toArray(data => this.items.data = data);
             db.orders.orderBy('id').toArray(data => this.orders.data = data);
             db.order_items.orderBy('description').toArray(data => this.orderItems.data = data);
+
+            notify.info("Данные загружены в приложение");
         },
 
         getCategoryName: function(id){
@@ -82,6 +93,3 @@ let Application = Vue.extend({
         }
     }
 });
-
-let App;
-

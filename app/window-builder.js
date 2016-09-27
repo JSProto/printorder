@@ -27,7 +27,7 @@ let WindowBuilder = {
 
         let index = windows.push(win) - 1;
 
-        win.loadURL('file://' + __dirname + '/../app/' + file);
+        win.loadURL('file://' + __dirname + '/../src/' + file);
 
         MenuBuilder.build(win);
 

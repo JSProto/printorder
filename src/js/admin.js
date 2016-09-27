@@ -2,10 +2,9 @@
  * Created by azbenek on 06.12.2015.
  */
 
-Vue.filter("getCategoryName", function(value) {
-    return App.getCategoryName(value);
+Vue.filter('getCategoryName', function (value) {
+    return global.App.getCategoryName(value);
 });
-
 
 // tableItems = new Vue({
 //     methods: {
@@ -32,25 +31,24 @@ Vue.filter("getCategoryName", function(value) {
 //     }
 // });
 
-
-App = new Application({
+global.App = new Application({
     el: '#content',
     replace: false,
     data: {
         categories: {
             columns: [{
-                key: "id",
-                name: "ID",
+                key: 'id',
+                name: 'ID',
                 allowEdit: false,
                 style: {
                     width: '5%'
                 }
             }, {
-                key: "description",
-                name: "Название"
+                key: 'description',
+                name: 'Название'
             }, {
-                key: "group",
-                name: "Группа",
+                key: 'group',
+                name: 'Группа',
                 style: {
                     width: '65px'
                 }
@@ -59,33 +57,33 @@ App = new Application({
         },
         items: {
             columns: [{
-                key: "id",
-                name: "ID",
+                key: 'id',
+                name: 'ID',
                 allowEdit: false,
                 style: {
                     width: '5%',
                     'text-align': 'center'
                 }
             }, {
-                key: "code",
-                name: "Код",
+                key: 'code',
+                name: 'Код',
                 style: {
                     width: '52px'
                 }
             }, {
-                key: "cat_id",
-                name: "Категория",
+                key: 'cat_id',
+                name: 'Категория',
                 filter: {
-                    name: "getCategoryName"
+                    name: 'getCategoryName'
                 }
             }, {
-                key: "description",
-                name: "Название"
+                key: 'description',
+                name: 'Название'
             }, {
-                key: "price",
-                name: "Price",
+                key: 'price',
+                name: 'Price',
                 filter: {
-                    name: "currencyDisplay"
+                    name: 'currency'
                 },
                 style: {
                     width: '85px',
@@ -96,33 +94,21 @@ App = new Application({
         },
         orders: {
             columns: [{
-                key: "id",
-                name: "ID",
+                key: 'id',
+                name: 'ID',
                 allowEdit: false,
                 style: {
                     width: '5%'
                 }
             }, {
-                key: "datetime",
-                name: "Дата создания"
+                key: 'datetime',
+                name: 'Дата создания'
             }],
             data: []
         },
         orderItems: {
             data: []
         }
-    },
-    methods: {
     }
 });
-
-
-jQuery('.create-db').on('click', function(){
-    App.importJsonToDb();
-});
-
-jQuery('.load-db').on('click', () => {
-    App.importDbToApp();
-});
-
 

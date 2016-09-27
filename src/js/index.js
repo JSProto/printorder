@@ -124,6 +124,10 @@ App = new Application({
         },
         printOrder: function(orderItems){
             console.log("print order", Vue.filter("json").read(orderItems));
+        },
+        openAdminPanel: function(){
+            const {ipcRenderer} = require('electron');
+            ipcRenderer.send('open-admin-page', 'ping');
         }
     }
 });

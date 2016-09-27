@@ -8,16 +8,11 @@
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../node_modules/jquery-ui/themes/base/all.css" rel="stylesheet">
+    <link href="../node_modules/notification-js/build/notification.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 
-    <script type="text/javascript">
-        window.jQuery = require('jquery');
-        require('jquery-ui');
-        require('bootstrap');
-    </script>
-
 </head>
-<body>
+<body id="content">
 
     <template id="dropdown-template">
         <div class="dropdown" v-show="show" v-bind:class="originClass" transition="dropdown">
@@ -227,14 +222,14 @@
                     <a class="navbar-brand" href="#">Administration</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="#" class="create-db">Заполнить базу данными</a></li>
-                    <li><a href="#" class="load-db">Загрузка данных в приложение</a></li>
+                    <li><a href="#" @click="importJsonToDb()">Заполнить базу данными</a></li>
+                    <li><a href="#" @click="importDbToApp()">Загрузка данных в приложение</a></li>
                 </ul>
             </div>
         </nav>
     </div>
 
-    <div class="container" id="content">
+    <div class="container">
         <div class="row">
 
             <div class="col-md-12">
@@ -280,13 +275,6 @@
         </div>
     </div>
 
-
-    <script type="text/javascript">
-        jQuery(function($) {
-
-
-        });
-    </script>
     <script type="text/javascript" src="js/init.js"></script>
     <script type="text/javascript" src="js/grid.js"></script>
     <script type="text/javascript" src="js/admin.js"></script>

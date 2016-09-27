@@ -1,21 +1,18 @@
 
-
 Vue.config.debug = false;
 
-Vue.partial("defaultGridCell", "<span>{{ formatData(column, row[column.key]) }}</span>");
-Vue.partial("editableGridCell", "<input type=\"text\" v-model=\"row[column.key]\" lazy/>");
-Vue.partial("linkedGridCell", "<a href=\"http://www.google.com?q={{ row.name }}\"><partial name=\"defaultGridCell\"></partial></a>");
-Vue.partial("buttonGridCell", '<button class="btn btn-default btn-xs" @click="editItem(row.id)"> <partial name="defaultGridCell"></partial></button>');
-
+Vue.partial('defaultGridCell', '<span>{{ formatData(column, row[column.key]) }}</span>');
+Vue.partial('editableGridCell', '<input type="text" v-model="row[column.key]" lazy/>');
+Vue.partial('linkedGridCell', '<a href="http://www.google.com?q={{ row.name }}"><partial name="defaultGridCell"></partial></a>');
+Vue.partial('buttonGridCell', '<button class="btn btn-default btn-xs" @click="editItem(row.id)"> <partial name="defaultGridCell"></partial></button>');
 
 Vue.filter('currency', {
     // http://openexchangerates.github.io/accounting.js/accounting.min.js
-    read: accounting.formatMoney,
-    write: accounting.unformat
+    read: currency.formatMoney,
+    write: currency.unformat
 });
 
-
-Vue.filter("groupBy", function(value, key) {
+Vue.filter('groupBy', function (value, key) {
     var groups = {
         data: value
     };
@@ -37,10 +34,8 @@ Vue.filter("groupBy", function(value, key) {
     return groups;
 });
 
-
-
-Vue.component("dropdown", {
-    template: "#dropdown-template",
+Vue.component('dropdown', {
+    template: '#dropdown-template',
     props: {
         for: {
             type: String,
@@ -49,7 +44,7 @@ Vue.component("dropdown", {
 
         origin: {
             type: String,
-            default: "top left"
+            default: 'top left'
         },
 
         preserveState: {
@@ -59,60 +54,60 @@ Vue.component("dropdown", {
     },
     computed: {
 
-        originClass: function() {
+        originClass: function () {
             switch (this.origin) {
-                case "top left":
-                    return "dropdown-top-left";
-                case "bottom left":
-                    return "dropdown-bottom-left";
-                case "bottom right":
-                    return "dropdown-bottom-right";
+                case 'top left':
+                    return 'dropdown-top-left';
+                case 'bottom left':
+                    return 'dropdown-bottom-left';
+                case 'bottom right':
+                default:
+                    return 'dropdown-bottom-right';
             }
         }
     },
-    data: function() {
+    data: function () {
         return {
             show: false
         };
     },
-    ready: function() {
+    ready: function () {
         var _this = this;
 
         var element = document.getElementById(_this.for);
 
-        var hide = function(event) {
+        var hide = function (event) {
             event.stopPropagation();
 
             if (!(_this.preserveState && _this.$el.contains(event.target))) {
                 _this.show = false;
-                document.body.removeEventListener("click", hide);
+                document.body.removeEventListener('click', hide);
             }
-
         };
 
-        var show = function(event) {
+        var show = function (event) {
             event.preventDefault();
             event.stopPropagation();
 
-            var dropdowns = [].slice.call(document.querySelectorAll(".dropdown"));
+            var dropdowns = [].slice.call(document.querySelectorAll('.dropdown'));
 
-            dropdowns.forEach(function(dropdown) {
+            dropdowns.forEach(function (dropdown) {
                 dropdown.__vue__.show = false;
             });
 
             if (!_this.show) {
                 _this.show = true;
 
-                document.body.addEventListener("click", hide);
+                document.body.addEventListener('click', hide);
             }
         };
 
-        element.addEventListener("click", show);
+        element.addEventListener('click', show);
     }
 });
 
-Vue.component("datagridOptions", {
-    template: "#datagrid-options-template",
+Vue.component('datagridOptions', {
+    template: '#datagrid-options-template',
     props: {
         gridId: {
             type: String,
@@ -134,7 +129,7 @@ Vue.component("datagridOptions", {
         },
         dataFilter: {
             type: String,
-            default: "",
+            default: '',
             required: true
         },
         showAdvancedOptions: {
@@ -143,14 +138,14 @@ Vue.component("datagridOptions", {
     },
     methods: {
         getControlName(columnKey, suffix) {
-            return this.gridId + "-" + columnKey + "-" + suffix;
+            return this.gridId + '-' + columnKey + '-' + suffix;
         }
 
     }
 });
 
-Vue.component("datagrid", {
-    template: "#datagrid-template",
+Vue.component('datagrid', {
+    template: '#datagrid-template',
     props: {
         id: {
             type: String,
@@ -166,7 +161,7 @@ Vue.component("datagrid", {
         cellTemplate: {
             type: String,
             required: false,
-            default: "defaultGridCell"
+            default: 'defaultGridCell'
         },
         allowSelection: {
             type: Boolean,
@@ -190,37 +185,37 @@ Vue.component("datagrid", {
         }
     },
     computed: {
-        columnSpan: function() {
+        columnSpan: function () {
             return this.allowSelection ? this.columns.length + 1 : this.columns.length;
         },
-        showOptions: function() {
+        showOptions: function () {
             return this.showDefaultOptions || this.showAdvancedOptions;
         },
-        showFooter: function() {
+        showFooter: function () {
             return this.dataFilter || this.groupingColumn || this.selectedRows.length > 0;
         }
     },
-    data: function() {
+    data: function () {
         return {
             sortingKey: null,
             sortingDirection: 1,
             groupingColumn: null,
-            dataFilter: "",
+            dataFilter: '',
             selectedRows: [],
             selectAll: false
         };
     },
     methods: {
-        getCellTemplate: function(column) {
-            return column.allowEdit !== false && this.allowEdit ? "editableGridCell" : (column.template || this.cellTemplate);
+        getCellTemplate: function (column) {
+            return column.allowEdit !== false && this.allowEdit ? 'editableGridCell' : (column.template || this.cellTemplate);
         },
         getColumnStyle: function (column) {
             return column.style || {};
         },
-        getControlId: function(groupName, index, suffix) {
-            return groupName + "-" + index + (suffix ? "-" + suffix : "");
+        getControlId: function (groupName, index, suffix) {
+            return groupName + '-' + index + (suffix ? '-' + suffix : '');
         },
-        sortBy: function(column) {
+        sortBy: function (column) {
             if (column.key === this.sortingKey) {
                 this.sortingDirection *= -1;
                 return;
@@ -229,22 +224,23 @@ Vue.component("datagrid", {
             this.sortingKey = column.key;
             this.sortingDirection = 1;
         },
-        groupBy: function(column) {
+        groupBy: function (column) {
             this.groupingColumn = column || null;
         },
-        resetFilter: function() {
-            this.dataFilter = "";
+        resetFilter: function () {
+            this.dataFilter = '';
         },
-        resetGrouping: function() {
+        resetGrouping: function () {
             this.groupingColumn = null;
         },
-        resetSelection: function() {
+        resetSelection: function () {
             this.selectedRows = [];
             this.selectAll = false;
         },
-        formatData: function(column, value) {
-            if (column.hasOwnProperty("filter")) {
+        formatData: function (column, value) {
+            if (column.hasOwnProperty('filter')) {
                 var filter = Vue.filter(column.filter.name);
+                if (!filter) throw new Error(`filter "${column.filter.name}" not found`);
                 var args = [].concat(value, column.filter.args);
                 return (filter.read || filter).apply(this, args);
             }
@@ -254,7 +250,7 @@ Vue.component("datagrid", {
             var nextId = this.data.reduce((m, e)=> m > e.id ? m:  parseInt(e.id), 0) + 1;
             this.data.unshift({
                 id: nextId,
-                description: "test"
+                description: 'test'
             });
             this.allowEdit = true;
             this.allowSelection = true;
@@ -265,15 +261,15 @@ Vue.component("datagrid", {
         }
     },
     watch: {
-        selectAll: function(value) {
+        selectAll: function (value) {
             this.selectedRows = value ? [].concat(this.data) : [];
         }
     }
 });
 
 
-Vue.component("cart", {
-    template: "#cart-template",
+Vue.component('cart', {
+    template: '#cart-template',
     props: {
         id: {
             type: String,
@@ -285,7 +281,7 @@ Vue.component("cart", {
         cellTemplate: {
             type: String,
             required: false,
-            default: "defaultGridCell"
+            default: 'defaultGridCell'
         },
         allowEdit: {
             type: Boolean,
@@ -294,22 +290,22 @@ Vue.component("cart", {
         }
     },
     computed: {
-        columnSpan: function() {
+        columnSpan: function () {
             return this.allowSelection ? this.columns.length + 1 : this.columns.length;
         },
         total: function () {
-            return this.data.items.reduce((total, e)=> total + accounting.unformat(e.total, ","), 0);
+            return this.data.items.reduce((total, e)=> total + currency.unformat(e.total, ','), 0);
         }
     },
     methods: {
-        getCellTemplate: function(column) {
-            return column.allowEdit !== false && this.allowEdit ? "editableGridCell" : (column.template || this.cellTemplate);
+        getCellTemplate: function (column) {
+            return column.allowEdit !== false && this.allowEdit ? 'editableGridCell' : (column.template || this.cellTemplate);
         },
         getColumnStyle: function (column) {
             return column.style || {};
         },
-        formatData: function(column, value) {
-            if (column.hasOwnProperty("filter")) {
+        formatData: function (column, value) {
+            if (column.hasOwnProperty('filter')) {
                 var filter = Vue.filter(column.filter.name);
                 var args = [].concat(value, column.filter.args);
                 return (filter.read || filter).apply(this, args);
@@ -320,15 +316,15 @@ Vue.component("cart", {
             var nextId = this.data.reduce((m, e)=> m > e.id ? m:  parseInt(e.id), 0) + 1;
             this.data.unshift({
                 id: nextId,
-                name: "test"
+                name: 'test'
             });
             this.allowEdit = true;
         },
         removeRow: function (row) {
             this.data.items.$remove(row);
-            notify.default("Из корзины удален один элемент");
+            notify.default('Из корзины удален один элемент');
         },
-        print: function(){
+        print: function (){
             this.$emit('order-print', this.data.items);
         }
     }

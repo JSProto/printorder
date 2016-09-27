@@ -4,12 +4,10 @@
   "description": "Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "lint": "standard",
     "clean": "rm -rf ./dist/*",
-    "build-mac": "npm run clean && electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.4.1 --app-version=$npm_package_version --out=dist --prune",
-    "build-win": "npm run clean && electron-packager . PrintOrder --overwrite --platform=win32 --arch=x64 --version=1.4.1 --app-version=$npm_package_version --out=dist --prune",
-    "test": "xo"
+    "build:mac": "npm run clean && electron-packager . PrintOrder --overwrite --platform=darwin --arch=x64 --version=1.4.1 --app-version=$npm_package_version --out=dist --prune",
+    "build:win": "npm run clean && electron-packager . PrintOrder --overwrite --platform=win32 --arch=x64 --version=1.4.1 --app-version=$npm_package_version --out=dist --prune",
+    "start": "NODE_ENV=development electron ."
   },
   "keywords": [
     "medical",
@@ -20,27 +18,16 @@
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-packager": "^8.0.0",
-    "electron-prebuilt": "^1.2.0",
-    "xo": "^0.16.0"
+    "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
     "accounting": "^0.4.1",
     "bootstrap": "^3.3.7",
     "dexie": "^1.4.2",
-    "jquery": "^3.1.0",
+    "jquery": "^3.1.1",
     "jquery-ui": "^1.12.1",
+    "jqueryui": "^1.11.1",
     "notification-js": "^1.1.1",
     "vue": "^1.0.26"
-  },
-  "xo": {
-    "space": 2,
-    "envs": [
-      "node",
-      "browser"
-    ],
-    "ignores": [
-      "dist/**",
-      "node_modules/**"
-    ]
   }
 }
