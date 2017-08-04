@@ -50,7 +50,7 @@
                             <span>{{row.qty * row.price | currency}}</span>
                         </td>
                         <td>
-                            <button class="order-item-del btn btn-danger btn-xs"  @click="removeRow(row)">X</button>
+                            <button class="order-item-del btn btn-danger btn-xs"  @click="removeItem(row)">X</button>
                         </td>
                     </tr>
                 </tbody>
@@ -64,8 +64,8 @@
                 </tr>
                 </tfoot>
             </table>
-            <div class="panel-footer">
-                <button class="btn btn-info btn-sm" @click="print()">Роздрукувати</button>
+            <div class="panel-footer" v-show="data.items.length">
+                <button @click="print()" class="btn btn-info btn-sm">Роздрукувати</button>
             </div>
         </div>
     </template>
@@ -77,7 +77,7 @@
                     <a class="navbar-brand" href="#">Замовлення</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="#" @click="createOrder()">Нове замовлення</a></li>
+                    <li><a href="#" @click="newOrder()">Нове замовлення</a></li>
                     <li><a href="#" @click="openAdminPanel()">Администрирование</a></li>
                 </ul>
             </div>

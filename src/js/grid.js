@@ -277,55 +277,20 @@ Vue.component('cart', {
         },
         data: {
             type: Object
-        },
-        cellTemplate: {
-            type: String,
-            required: false,
-            default: 'defaultGridCell'
-        },
-        allowEdit: {
-            type: Boolean,
-            required: false,
-            default: false
         }
     },
     computed: {
-        columnSpan: function () {
-            return this.allowSelection ? this.columns.length + 1 : this.columns.length;
-        },
         total: function () {
             return this.data.items.reduce((total, e)=> total + currency.unformat(e.total, ','), 0);
         }
     },
     methods: {
-        getCellTemplate: function (column) {
-            return column.allowEdit !== false && this.allowEdit ? 'editableGridCell' : (column.template || this.cellTemplate);
-        },
-        getColumnStyle: function (column) {
-            return column.style || {};
-        },
-        formatData: function (column, value) {
-            if (column.hasOwnProperty('filter')) {
-                var filter = Vue.filter(column.filter.name);
-                var args = [].concat(value, column.filter.args);
-                return (filter.read || filter).apply(this, args);
-            }
-            return value;
-        },
-        addRow: function () {
-            var nextId = this.data.reduce((m, e)=> m > e.id ? m:  parseInt(e.id), 0) + 1;
-            this.data.unshift({
-                id: nextId,
-                name: 'test'
-            });
-            this.allowEdit = true;
-        },
-        removeRow: function (row) {
+        removeItem: function (row) {
             this.data.items.$remove(row);
             notify.default('Из корзины удален один элемент');
         },
         print: function (){
-            this.$emit('order-print', this.data.items);
+            this.$emit('order-print', this.data);
         }
     }
 });

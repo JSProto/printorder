@@ -122,8 +122,61 @@ App = new Application({
             this.cart.items.push(Object.assign({qty: 1}, row));
             notify.info("В корзину добавлен один элемент");
         },
-        printOrder: function(orderItems){
-            console.log("print order", Vue.filter("json").read(orderItems));
+        printOrder: function(orderObject){
+
+            let {id, datetime, total} = this.cart;
+
+            let order = Object.assign({}, {id, datetime, total});
+            let items = this.cart.items.map(item => {
+                let {qty, code, description, price} = item;
+                return Object.assign({}, {
+                    order_id: order.id,
+                    qty, code, description, price
+                });
+            });
+
+
+            db.orders.put(order).then(() => {
+
+                db.order_items.bulkAdd(items).then((itr) => {
+                    console.log(itr);
+
+                    this.orders.data.push(order);
+                    this.orderItems.data.concat(items);
+
+                    console.log("print order", Vue.filter("json").read({order, items}));
+                    this.newOrder();
+
+                }).catch(e => {
+                    notify.error("Failed to add order item");
+                    throw e; // Rethrow to abort transaction.
+                });
+
+            }).catch(e => {
+                notify.error("Failed to add order");
+                throw e; // Rethrow to abort transaction.
+            });
+
+            //
+            // db.order_items.bulkAdd(items);
+
+            // this.orders.data.push(order);
+
+            //   // "qty": 1,
+            //   // "id": 9,
+            //   // "cat_id": 3,
+            //   // "code": 4008,
+            //   // "description": "Аналіз калу на яйця гельмінтів і цисти найпростіших",
+            //   // "price": 95,
+            //   // "total": 95
+
+            // this.orderItems.concat(this.cart.items);
+
+
+        },
+        newOrder: function(){
+            this.cart.items = [];
+            // console.log("new order", Vue.filter("json").read(this.cart));
         },
         openAdminPanel: function(){
             const {ipcRenderer} = require('electron');

@@ -79,6 +79,20 @@ function getOrderItems () {
     });
 }
 
+function printWindow(orderId){
+    const {BrowserWindow} = require('electron').remote;
+
+    let print_win = new BrowserWindow({
+        autoHideMenuBar: true
+    });
+    print_win.loadURL('file://' + __dirname + '/print.html#id=' + orderId);
+    print_win.show();
+
+    print_win.webContents.print();
+
+    return print_win;
+}
+
 let Application = Vue.extend({
 
     created: function(){
@@ -91,7 +105,7 @@ let Application = Vue.extend({
             Object.keys(data).forEach((key)=>{
                 db[key].clear();
 
-                db[key].bulkAdd(data[key])
+                db[key].bulkPut(data[key])
                     .then(() => console.info(`Loaded ${key}.`))
                     .catch(Dexie.BulkError, e => notify.error("Error: ", key, (e.stack || e)));
             });
